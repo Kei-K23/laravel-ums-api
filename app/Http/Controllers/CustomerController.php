@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -12,15 +13,10 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $customers = Customer::all();
+        return response()->json([
+            'data' => $customers
+        ], 200);
     }
 
     /**
@@ -28,15 +24,31 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:customers|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $customer = Customer::create($request->all());
+        return response()->json([
+            'data' => $customer
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        return response()->json([
+            'data' => $customer
+        ], 200);
     }
 
     /**
