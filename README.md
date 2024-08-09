@@ -15,13 +15,13 @@ This is a Laravel 11 backend API for managing customers. The API includes authen
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/katherinekhine/apiEmployeeCRUD.git
+git clone https://github.com/Kei-K23/laravel-ums-api.git
 ```
 
 2. **Navigate to the project directory:**
 
 ```bash
-cd apiEmployeeCRUD
+cd laravel-ums-api
 ```
 
 3. **Install dependencies:**
